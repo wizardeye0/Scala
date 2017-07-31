@@ -1,5 +1,9 @@
 //	control structure
 
+import java.io.FileReader
+import java.io.FileNotFoundException
+import java.io.IOException
+
 object ControlEx {
 	def main(args: Array[String]) {
 
@@ -48,6 +52,16 @@ object ControlEx {
 
 		for (length <- forLineLengths)
 			println("for yield. line length : " + length)
+
+//	try-cath-finally
+		try {
+			val f = new FileReader("input.txt") 
+		} catch {
+			case ex: FileNotFoundException => 
+			case ex: IOException => 
+		} finally {
+			println("FileReader try error. finally 'input.txt' file must be close")
+		}
 
 	}
 
