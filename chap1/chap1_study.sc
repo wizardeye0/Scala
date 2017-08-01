@@ -63,6 +63,43 @@ object ControlEx {
 			println("FileReader try error. finally 'input.txt' file must be close")
 		}
 
+//	match 표현식은 C++ 이 정수형 상수 타입만 사용할 수 있는 것과 달리 case 내 어떤 종류의 상수도 사용할 수 있으며, 
+//	표현식의 결과가 값이다.
+		val foo = "Lee"
+
+		val matchRet = 
+			foo match {
+				case "Kim" => "Doo Hwan"
+				case "lee" => "sin"
+				case "Lee" => "Seok Ki"
+				case _ => "hul?"
+			}
+		println(foo + " " + matchRet)
+
+//	스칼라는 break, continue 를 지원하지 않는다. 함수형 스타일에서는 값이 생성되지 않으면 의미가 없기 때문이다
+		var i = 0
+		var flag = false
+
+		while (i < 5 && !flag) {
+			if (i > 3) {
+				if (i == 4) {	/// flag 를 조작하면 break 대용이 된다. i 가 4일때 break
+					flag = true
+					println("i == 4 ? i : " + i + ", no break. but, flag replace break.")
+				}
+			}	///	카운터를 제외한 모든 구문을 if 로 감싸면, continue 대용이 된다. i 가 3 이하 일때 continue
+			println("i: " + i + ", no continue. but, if replace continue.")
+			i += 1	///	하지만, 뭔가 어색하군...
+		}
+
+		println("원하는 것은 i 값 입니다. loop-style : " + i)
+
+//	loop 보다 재귀 사용을 권장한다.
+		println("원하는 것은 i 값입니다. recursive-style : " + recursiveForLoop(0))
+
+//	scope 개념은 다른 언어와 동일하다.
+
+//	마지막으로 함수형 제어구문 종합 sample
+		println("이제 제어 구문 샘플 코드의 마지막 출력입니다.\n" + multiTable)
 	}
 
 	//	while loop
@@ -97,5 +134,25 @@ object ControlEx {
 			if trimmed.matches(pattern)
 		} println("for overlapping. " + file + ": " + trimmed)
 
+	//	recursive replace loop
+	def recursiveForLoop(i: Int): Int =
+		if (i > 5) -1
+		else if (i == 4) i + 1
+		else recursiveForLoop(i + 1)
+
+	//	functional style control structure
+	def makeRowSeq(row: Int) = 
+		for (col <- 1 to 10) yield {
+			val prod = (row * col).toString
+			val padding = " " * (4 - prod.length)
+			padding + prod
+		}
+
+	def makeRow(row: Int) = makeRowSeq(row).mkString
+
+	def multiTable() = {
+		val tableSeq = for (row <- 1 to 10) yield makeRow(row)
+		tableSeq.mkString("\n")
+	}
 }
 
