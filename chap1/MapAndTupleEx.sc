@@ -22,6 +22,13 @@ object MapAndTupleEx {
 		val immutableMap = Map.empty ++ mutableMap
 		// immutableMap("ever park") = 30
 
+		//	map 에 없는 key 를 사용하면 None: Option 이 반환된다.
+		val retOption = valMap.get("hi")
+		retOption match {
+			case None => println("key[hi]'s value is None: Option")
+			case _ => retOption	/// Some
+		}
+
 		//	튜플 사용. 일반적인 사용 예는 여러 값을 반환하는 것이다.
 		val words = "The quick red fox"
 		val longest = longestWord(words.split(" "))
