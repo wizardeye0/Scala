@@ -19,7 +19,7 @@ object FunctionEx {
 		def makeIncreaser(i: Int) = (x: Int) => x + i
 		println("+ 1 적용한 Increaser. i : " + makeIncreaser(1)(1))
 		println("+ 9999 적용한 Increaser. i : " + makeIncreaser(9999)(1))
-		
+	
 		//	부분 적용 함수
 		val partialApply = sum(1, _: Int)
 		println("sum(1, _: Int) 결과는 " + partialApply(2) + " 입니다.")
